@@ -25,10 +25,10 @@ This project demonstrates how machine learning models can be integrated into rea
 
 # Applications
 
-1.Brand and product sentiment monitoring
-2.Market and trend analysis
-3.Public opinion tracking
-4.Decision support using social media data
+1. **Brand and Product Monitoring** – Track public sentiment about companies and products.  
+2. **Market and Trend Analysis** – Analyze reactions to trending topics and events.  
+3. **Public Opinion Tracking** – Understand how people feel about social or political issues.  
+4. **Decision Support** – Help organizations make data-driven decisions using social media sentiment.  
 
 
 
