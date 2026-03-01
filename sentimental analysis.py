@@ -12,8 +12,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns 
-import os
-import random
 from sklearn.model_selection  import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -26,37 +24,73 @@ import re
 
 # %%
 #importing the dataset 
-df=pd.read_csv(r"C:\Users\ASUS\Desktop\training datasets\twitter_training.csv\twitter_training.csv")
+df = pd.read_csv(
+    r"C:\Users\ASUS\Desktop\archive\training.1600000.processed.noemoticon.csv",
+    header=None
+)
+
+df.columns = ["sentiment", "id", "date", "query", "user", "text"]
 
 # %%
-df.tail(5),df.head(5)
+df.head()
 
 # %%
-df.info()
+df.shape()
 
 # %%
-df.isnull().sum()
+df = df[["sentiment", "text"]]
 
-#outlier detection
-def detect_outliers_iqr(column):
-    Q1 = column.quantile(0.25)
-    Q3 = column.quantile(0.75)
-    IQR = Q3 - Q1
+df.head()
 
-    lower_bound = Q1 - 1.5 * IQR
-    upper_bound = Q3 + 1.5 * IQR
+#converting the sentiment nummbers to labels from 0-negative and 4-postive 
+df["sentiment"] = df["sentiment"].replace({0: "negative", 4: "positive"})
 
-    outliers = column[(column < lower_bound) | (column > upper_bound)]
-    return outliers
+#checking missing and duplicate values
+print(df.isnull().sum())
+print("Duplicates:", df.duplicated().sum())
+
+df = df.dropna()
+df = df.drop_duplicates()
 
 
-numeric_col = df.select_dtypes(include=np.number).columns[0]
+def clean_text(text):
+    text = text.lower()
+    text = re.sub(r"http\S+", "", text)
+    text = re.sub(r"@\w+", "", text)
+    text = re.sub(r"[^a-zA-Z\s]", "", text)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text
 
-outliers = detect_outliers_iqr(df[numeric_col])
+df["clean_text"] = df["text"].apply(clean_text)
 
-print("Column checked:", numeric_col)
-print("Number of outliers:", len(outliers))
-print(outliers.head())
+df.head()
+
+#defining the features and the labels 
+X = df["clean_text"]
+y = df["sentiment"]
+
+#splitting the data into train and test 
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+#tf-idf vectorizer to convert the words to numbers without loosing the semantic valie 
+vectorizer = TfidfVectorizer(max_features=5000)
+
+X_train_tfidf = vectorizer.fit_transform(X_train)
+X_test_tfidf = vectorizer.transform(X_test)
+
+#training the model 
+model = LogisticRegression(max_iter=200)
+
+model.fit(X_train_tfidf, y_train)
+
+#printing the model accuracy
+y_pred = model.predict(X_test_tfidf)
+
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("\nClassification Report:\n")
+print(classification_report(y_test, y_pred))
 
 
 
