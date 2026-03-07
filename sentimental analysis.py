@@ -92,6 +92,15 @@ print("Accuracy:", accuracy_score(y_test, y_pred))
 print("\nClassification Report:\n")
 print(classification_report(y_test, y_pred))
 
+#saving the model
+joblib.dump(model, "sentiment_analysis_model.pkl")
+joblib.dump(vectorizer, "tfidf_vectorizer.pkl")
+
+#loading the model for further use 
+model = joblib.load("sentiment_analysis_model.pkl")
+vectorizer = joblib.load("tfidf_vectorizer.pkl")
+
+
 
 
 
