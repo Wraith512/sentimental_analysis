@@ -16,3 +16,26 @@ def home():
     return "Twitter Sentiment Analysis API is running"
 
 
+#prediction route
+@app.route("/predict", methods=["POST"])
+def predict():
+
+    data = request.get_json()
+    text = data["text"]
+
+    # convert text to tfidf
+    text_vector = vectorizer.transform([text])
+
+    # predict sentiment
+    prediction = model.predict(text_vector)[0]
+
+    return jsonify({
+        "sentiment": prediction
+    })
+
+
+#running the server 
+if __name__ == "__main__":
+    app.run(debug=True)
+
+
