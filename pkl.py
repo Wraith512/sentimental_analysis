@@ -99,7 +99,10 @@ def predict_sentiment(text):
     prediction = model.predict(vec)[0]
     confidence = max(model.predict_proba(vec)[0])
     return f"Sentiment : {prediction}  |  Confidence : {confidence:.2%}"
-
+# Quick sanity test
+print(predict_sentiment("I love this so much!"))
+print(predict_sentiment("This is absolutely terrible."))
+print(predict_sentiment("The weather is okay today."))
 
 
 joblib.dump(model, "sentiment_analysis_model.pkl")
