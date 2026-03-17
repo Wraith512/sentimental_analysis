@@ -71,9 +71,20 @@ X_train_tfidf = vectorizer.fit_transform(X_train)
 X_test_tfidf = vectorizer.transform(X_test)
 
 
-model = LogisticRegression(max_iter=200)
+print("training LinearSVC...")
 
+base_svm = LinearSVC(
+    C=0.5,            # regularization — lower = stronger (good for noisy tweets)
+    max_iter=2000,    # SVC needs more iterations on large datasets
+    dual=True,        # faster when n_samples > n_features (your case)
+    loss='squared_hinge'
+)
+
+#wraps SVC to add predict_proba() support (needed for confidence scores)
+model = CalibratedClassifierCV(base_svm, cv=3)
 model.fit(X_train_tfidf, y_train)
+
+print("training complete.")
 
 y_pred = model.predict(X_test_tfidf)
 
