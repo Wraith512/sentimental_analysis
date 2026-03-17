@@ -92,6 +92,15 @@ print("Accuracy:", accuracy_score(y_test, y_pred))
 print("\nClassification Report:\n")
 print(classification_report(y_test, y_pred))
 
+# Confidence score helper for real-time prediction
+def predict_sentiment(text):
+    cleaned = clean_text(text)
+    vec = vectorizer.transform([cleaned])
+    prediction = model.predict(vec)[0]
+    confidence = max(model.predict_proba(vec)[0])
+    return f"Sentiment : {prediction}  |  Confidence : {confidence:.2%}"
+
+
 
 joblib.dump(model, "sentiment_analysis_model.pkl")
 joblib.dump(vectorizer, "tfidf_vectorizer.pkl")
