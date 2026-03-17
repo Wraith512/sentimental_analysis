@@ -59,7 +59,13 @@ X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
 
-vectorizer = TfidfVectorizer(max_features=5000)
+vectorizer = TfidfVectorizer(
+    max_features=5000,
+    ngram_range=(1,2),
+    sublinear_tf = True,
+    min_df = 3,
+    strip_accents ='unicode',
+    analyzer ='word')
 
 X_train_tfidf = vectorizer.fit_transform(X_train)
 X_test_tfidf = vectorizer.transform(X_test)
