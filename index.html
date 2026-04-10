@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Sentiment Analysis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Ubuntu', 'Segoe UI', Tahoma, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+            padding-bottom: 200px;
+            background: linear-gradient(180deg, #87CEEB 0%, #5BC0DE 30%, #3498db 60%, #2980b9 80%, #1a5276 100%);
+            background-attachment: fixed;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated background bubbles */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(255,255,255,0.15) 0%, transparent 25%),
+                radial-gradient(circle at 90% 80%, rgba(255,255,255,0.1) 0%, transparent 30%),
+                radial-gradient(circle at 50% 50%, rgba(173,216,230,0.1) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(144,238,144,0.08) 0%, transparent 35%),
+                radial-gradient(circle at 20% 80%, rgba(0,206,209,0.1) 0%, transparent 30%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Animated Waves */
+        .waves {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background-repeat: repeat-x;
+            transform-origin: center bottom;
+        }
+
+        .wave1 {
+            background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.3) 50%, rgba(200,230,255,0.5) 100%);
+            animation: wave 8s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+            z-index: 3;
+            opacity: 0.8;
+            bottom: 0;
+            height: 80px;
+            border-radius: 1000% 1000% 0 0;
+        }
+
+        .wave2 {
+            background: linear-gradient(180deg, transparent 0%, rgba(100,200,255,0.3) 40%, rgba(150,220,255,0.5) 100%);
+            animation: wave 10s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite reverse;
+            z-index: 2;
+            opacity: 0.6;
+            bottom: 20px;
+            height: 100px;
+            border-radius: 1000% 1000% 0 0;
+            animation-delay: -2s;
+        }
+
+        .wave3 {
+            background: linear-gradient(180deg, transparent 0%, rgba(50,150,220,0.25) 30%, rgba(100,180,240,0.4) 100%);
+            animation: wave 12s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+            z-index: 1;
+            opacity: 0.5;
+            bottom: 40px;
+            height: 120px;
+            border-radius: 1000% 1000% 0 0;
+            animation-delay: -4s;
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(-25%); }
+            100% { transform: translateX(-50%); }
+        }
