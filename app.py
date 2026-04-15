@@ -35,3 +35,60 @@ def get_twitter_client():
     except Exception as e:
         print(f"Error initializing Twitter client: {e}")
         return None
+
+#function to clean text (same as training)
+def clean_text(text):
+    text = text.lower()
+    text = re.sub(r"http\S+", "", text)
+    text = re.sub(r"@\w+", "", text)
+    text = re.sub(r"[^a-zA-Z\s]", "", text)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text
+
+
+def analyze_sentiment(text):
+    """Analyze sentiment of a single text"""
+    cleaned_text = clean_text(text)
+    text_vector = vectorizer.transform([cleaned_text])
+    prediction = model.predict(text_vector)[0]
+    confidence = max(model.predict_proba(text_vector)[0])
+    return {
+        "sentiment": prediction,
+        "confidence": round(confidence * 100, 2)
+    }
+
+
+#home route - serves the frontend
+@app.route("/")
+def home():
+    return render_template("index.html")
+
+
+#prediction route
+@app.route("/predict", methods=["POST"])
+def predict():
+    data = request.get_json()
+    text = data.get("text", "")
+    
+    if not text.strip():
+        return jsonify({"error": "Please enter some text"}), 400
+    
+    # clean the text
+    cleaned_text = clean_text(text)
+    
+    # convert text to tfidf
+    text_vector = vectorizer.transform([cleaned_text])
+
+    # predict sentiment
+    prediction = model.predict(text_vector)[0]
+    
+    # get confidence score
+    confidence = max(model.predict_proba(text_vector)[0])
+
+    return jsonify({
+        "sentiment": prediction,
+        "confidence": round(confidence * 100, 2),
+        "original_text": text,
+        "cleaned_text": cleaned_text
+    })
+
