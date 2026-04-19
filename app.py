@@ -36,6 +36,7 @@ def get_twitter_client():
         print(f"Error initializing Twitter client: {e}")
         return None
 
+
 #function to clean text (same as training)
 def clean_text(text):
     text = text.lower()
@@ -91,7 +92,9 @@ def predict():
         "original_text": text,
         "cleaned_text": cleaned_text
     })
-    #search tweets route - fetch real-time tweets
+
+
+#search tweets route - fetch real-time tweets
 @app.route("/search_tweets", methods=["POST"])
 def search_tweets():
     data = request.get_json()
@@ -117,6 +120,7 @@ def search_tweets():
             user_fields=["username", "name"],
             expansions=["author_id"]
         )
+        
         if not tweets.data:
             return jsonify({"tweets": [], "summary": {"total": 0, "positive": 0, "negative": 0}})
         
@@ -148,6 +152,7 @@ def search_tweets():
                 "sentiment": sentiment_result["sentiment"],
                 "confidence": sentiment_result["confidence"]
             })
+        
         total = len(results)
         summary = {
             "total": total,
@@ -158,6 +163,7 @@ def search_tweets():
         }
         
         return jsonify({"tweets": results, "summary": summary, "query": query})
+        
     except tweepy.TweepyException as e:
         error_msg = str(e)
         if "401" in error_msg:
@@ -168,7 +174,8 @@ def search_tweets():
             return jsonify({"error": f"Twitter API error: {error_msg}"}), 500
     except Exception as e:
         return jsonify({"error": f"Error fetching tweets: {str(e)}"}), 500
+
+
 #running the server 
 if __name__ == "__main__":
     app.run(debug=True)
-
