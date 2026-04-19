@@ -91,4 +91,30 @@ def predict():
         "original_text": text,
         "cleaned_text": cleaned_text
     })
+    #search tweets route - fetch real-time tweets
+@app.route("/search_tweets", methods=["POST"])
+def search_tweets():
+    data = request.get_json()
+    query = data.get("query", "")
+    count = min(data.get("count", 10), 100)  # Max 100 tweets
+    
+    if not query.strip():
+        return jsonify({"error": "Please enter a search query"}), 400
+    
+    client = get_twitter_client()
+    if not client:
+        return jsonify({"error": "Twitter API not configured. Please add your API credentials."}), 500
+    
+    try:
+        # Search recent tweets (last 7 days) using Twitter API v2
+        # Exclude retweets and replies for cleaner results
+        search_query = f"{query} -is:retweet -is:reply lang:en"
+        
+        tweets = client.search_recent_tweets(
+            query=search_query,
+            max_results=count,
+            tweet_fields=["created_at", "author_id", "public_metrics"],
+            user_fields=["username", "name"],
+            expansions=["author_id"]
+        )
 
