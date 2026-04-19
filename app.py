@@ -117,4 +117,34 @@ def search_tweets():
             user_fields=["username", "name"],
             expansions=["author_id"]
         )
-
+        if not tweets.data:
+            return jsonify({"tweets": [], "summary": {"total": 0, "positive": 0, "negative": 0}})
+        
+        # Create user lookup dictionary
+        users = {user.id: user for user in (tweets.includes.get("users", []) if tweets.includes else [])}
+        
+        results = []
+        positive_count = 0
+        negative_count = 0
+        
+        for tweet in tweets.data:
+            sentiment_result = analyze_sentiment(tweet.text)
+            
+            if sentiment_result["sentiment"] == "positive":
+                positive_count += 1
+            else:
+                negative_count += 1
+            
+            user = users.get(tweet.author_id, None)
+            
+            results.append({
+                "id": str(tweet.id),
+                "text": tweet.text,
+                "username": user.username if user else "unknown",
+                "name": user.name if user else "Unknown",
+                "created_at": tweet.created_at.isoformat() if tweet.created_at else None,
+                "likes": tweet.public_metrics.get("like_count", 0) if tweet.public_metrics else 0,
+                "retweets": tweet.public_metrics.get("retweet_count", 0) if tweet.public_metrics else 0,
+                "sentiment": sentiment_result["sentiment"],
+                "confidence": sentiment_result["confidence"]
+            })
