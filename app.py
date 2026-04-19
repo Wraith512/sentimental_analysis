@@ -158,3 +158,14 @@ def search_tweets():
         }
         
         return jsonify({"tweets": results, "summary": summary, "query": query})
+    except tweepy.TweepyException as e:
+        error_msg = str(e)
+        if "401" in error_msg:
+            return jsonify({"error": "Twitter API authentication failed. Check your credentials."}), 401
+        elif "429" in error_msg:
+            return jsonify({"error": "Twitter API rate limit exceeded. Please try again later."}), 429
+        else:
+            return jsonify({"error": f"Twitter API error: {error_msg}"}), 500
+    except Exception as e:
+        return jsonify({"error": f"Error fetching tweets: {str(e)}"}), 500
+
