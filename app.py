@@ -168,4 +168,7 @@ def search_tweets():
             return jsonify({"error": f"Twitter API error: {error_msg}"}), 500
     except Exception as e:
         return jsonify({"error": f"Error fetching tweets: {str(e)}"}), 500
+#running the server 
+if __name__ == "__main__":
+    app.run(debug=True)
 
