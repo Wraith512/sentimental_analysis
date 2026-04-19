@@ -148,3 +148,13 @@ def search_tweets():
                 "sentiment": sentiment_result["sentiment"],
                 "confidence": sentiment_result["confidence"]
             })
+        total = len(results)
+        summary = {
+            "total": total,
+            "positive": positive_count,
+            "negative": negative_count,
+            "positive_percent": round((positive_count / total) * 100, 1) if total > 0 else 0,
+            "negative_percent": round((negative_count / total) * 100, 1) if total > 0 else 0
+        }
+        
+        return jsonify({"tweets": results, "summary": summary, "query": query})
