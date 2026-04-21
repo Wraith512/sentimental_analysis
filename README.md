@@ -28,7 +28,15 @@ This project demonstrates how machine learning models can be integrated into rea
 1. **Brand and Product Monitoring** – Track public sentiment about companies and products.  
 2. **Market and Trend Analysis** – Analyze reactions to trending topics and events.  
 3. **Public Opinion Tracking** – Understand how people feel about social or political issues.  
-4. **Decision Support** – Help organizations make data-driven decisions using social media sentiment.  
+4. **Decision Support** – Help organizations make data-driven decisions using social media sentiment.
+
+# Future Works:
+
+Multi-Class Sentiment Detection — Extend the current binary classification (positive/negative) to support multiple emotion categories such as neutral, angry, and fearful for more detailed sentiment insights.
+Deep Learning Integration — Replace the Logistic Regression model with advanced transformer-based models such as BERT or RoBERTa to significantly improve prediction accuracy and contextual understanding.
+Real-Time Tweet Streaming — Implement Tweepy's live streaming API to continuously monitor and analyze tweets as they are posted, with dynamically updating charts on the dashboard.
+Sentiment Trend Analysis Over Time — Track how public sentiment around a keyword shifts over days or weeks and visualize it as a time-series graph to identify patterns and events that influence opinion.
+Geographical Sentiment Mapping — Integrate location data from tweets to display sentiment distribution on an interactive world map, revealing regional differences in public opinion on any given topic.
 
 
 
