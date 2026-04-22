@@ -1272,6 +1272,87 @@
         </div>
     </div>
 
+    <script>
+        function setExample(text) {
+            document.getElementById('tweet-input').value = text;
+            document.getElementById('tweet-input').focus();
+        }
+
+        async function analyzeSentiment() {
+            const text = document.getElementById('tweet-input').value.trim();
+            const btn = document.getElementById('analyze-btn');
+            const result = document.getElementById('result');
+            const errorMessage = document.getElementById('error-message');
+
+            // Hide previous results
+            result.classList.remove('show');
+            errorMessage.classList.remove('show');
+
+            if (!text) {
+                showError('Please enter some text to analyze.');
+                return;
+            }
+
+            // Show loading state
+            btn.classList.add('loading');
+            btn.disabled = true;
+
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ text: text }),
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Something went wrong');
+                }
+
+                // Update UI with results
+                displayResult(data);
+
+            } catch (error) {
+                showError(error.message || 'Failed to analyze sentiment. Please try again.');
+            } finally {
+                btn.classList.remove('loading');
+                btn.disabled = false;
+            }
+        }
+
+        function displayResult(data) {
+            const result = document.getElementById('result');
+            const badge = document.getElementById('sentiment-badge');
+            const sentimentText = document.getElementById('sentiment-text');
+            const confidenceValue = document.getElementById('confidence-value');
+            const confidenceFill = document.getElementById('confidence-fill');
+            const analyzedText = document.getElementById('analyzed-text');
+
+            // Update sentiment badge
+            const isPositive = data.sentiment === 'positive';
+            badge.className = 'sentiment-badge ' + data.sentiment;
+            badge.querySelector('i').className = 'fas ' + (isPositive ? 'fa-smile' : 'fa-frown');
+            sentimentText.textContent = data.sentiment.charAt(0).toUpperCase() + data.sentiment.slice(1);
+
+            // Update confidence
+            confidenceValue.textContent = data.confidence + '%';
+            confidenceFill.className = 'confidence-fill ' + data.sentiment;
+            
+            // Animate confidence bar
+            setTimeout(() => {
+                confidenceFill.style.width = data.confidence + '%';
+            }, 100);
+
+            // Update analyzed text
+            analyzedText.textContent = '"' + data.original_text + '"';
+
+            // Show result
+            result.classList.add('show');
+        }
+
 
 
 
