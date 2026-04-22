@@ -972,6 +972,91 @@
                 inset 0 2px 4px rgba(0,0,0,0.08),
                 0 1px 0 rgba(255,255,255,0.8);
         }
+        .sentiment-bar-positive {
+            background: linear-gradient(180deg, 
+                rgba(100,220,140,0.95) 0%, 
+                rgba(60,180,100,0.9) 100%);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: width 0.8s ease;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .sentiment-bar-positive::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, transparent 100%);
+        }
+
+        .sentiment-bar-negative {
+            background: linear-gradient(180deg, 
+                rgba(255,120,120,0.95) 0%, 
+                rgba(220,80,80,0.9) 100%);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: width 0.8s ease;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .sentiment-bar-negative::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.25) 0%, transparent 100%);
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .card {
+                padding: 25px;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .input-row {
+                flex-direction: column;
+            }
+
+            .input-row .input-group.small {
+                flex: 1;
+            }
+
+            .summary-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .bubble {
+                display: none;
+            }
+
+            .waves {
+                height: 100px;
+            }
+        }
 
 
 
