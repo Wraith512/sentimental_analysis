@@ -7,7 +7,9 @@ Machine Learning: Python, scikit-learn, TF-IDF, Linear SVC
 
 Backend: Flask, Flask-CORS, Tweepy, joblib
 
-Frontend: React, JavaScript, Chart.js, Axios/Fetch
+Frontend: HTML, CSS, JavaScript, Fetch API
+
+Dataset: Sentiment140 (1.6M tweets)
 
 # Project Workflow
 
