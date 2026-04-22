@@ -52,4 +52,16 @@ This project demonstrates how machine learning models can be integrated into rea
 ## demo
 <img width="1901" height="867" alt="image" src="https://github.com/user-attachments/assets/ac04b291-f011-4f84-8d0d-35870530b1cf" />
 
+## Project Structure
+
+sentiment-analysis/
+├── app.py              # Flask backend
+├── pkl.py              # Model training script
+├── sentiment_model.pkl # Trained model
+├── tfidf_vectorizer.pkl# Saved vectorizer
+├── templates/
+│   └── index.html      # Frontend
+├── screenshots/        # App screenshots
+└── README.md
+
 
