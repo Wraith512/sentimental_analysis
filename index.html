@@ -1179,6 +1179,98 @@
                 </div>
             </div>
         </div>
+        <!-- Twitter Search Tab -->
+        <div id="twitter-tab" class="tab-content">
+            <div class="card">
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="twitter-query">Search Twitter (keyword, hashtag, or topic):</label>
+                        <input 
+                            type="text" 
+                            id="twitter-query" 
+                            placeholder="e.g., #AI, Tesla, climate change..."
+                        >
+                    </div>
+                    <div class="input-group small">
+                        <label for="tweet-count">Tweets</label>
+                        <input 
+                            type="number" 
+                            id="tweet-count" 
+                            value="10" 
+                            min="1" 
+                            max="100"
+                        >
+                    </div>
+                </div>
+
+                <button class="btn" id="search-btn" onclick="searchTweets()">
+                    <div class="spinner"></div>
+                    <span class="btn-text"><i class="fab fa-twitter"></i> Fetch & Analyze Tweets</span>
+                </button>
+
+                <div class="examples">
+                    <h4>Popular searches:</h4>
+                    <div class="example-chips">
+                        <span class="example-chip" onclick="setSearchExample('#AI')">#AI</span>
+                        <span class="example-chip" onclick="setSearchExample('#Tesla')">Tesla</span>
+                        <span class="example-chip" onclick="setSearchExample('Bitcoin')">Bitcoin</span>
+                        <span class="example-chip" onclick="setSearchExample('#climatechange')">#climatechange</span>
+                    </div>
+                </div>
+
+                <div class="error-message" id="twitter-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span id="twitter-error-text"></span>
+                </div>
+
+                <div class="result" id="twitter-result">
+                    <div class="result-card">
+                        <h3 style="color: #1a5276; margin-bottom: 20px; text-shadow: 0 1px 0 rgba(255,255,255,0.5); position: relative; z-index: 1;">
+                            <i class="fas fa-chart-pie" style="color: #2e86ab;"></i> 
+                            Results for "<span id="search-query-display"></span>"
+                        </h3>
+
+                        <div class="summary-cards">
+                            <div class="summary-card">
+                                <div class="number" id="total-tweets">0</div>
+                                <div class="label">Total Tweets</div>
+                            </div>
+                            <div class="summary-card positive">
+                                <div class="number" id="positive-tweets">0</div>
+                                <div class="label">Positive</div>
+                            </div>
+                            <div class="summary-card negative">
+                                <div class="number" id="negative-tweets">0</div>
+                                <div class="label">Negative</div>
+                            </div>
+                        </div>
+
+                        <div class="sentiment-bar-container">
+                            <div class="sentiment-bar-label">
+                                <span><i class="fas fa-smile" style="color: #059669;"></i> Positive</span>
+                                <span><i class="fas fa-frown" style="color: #dc2626;"></i> Negative</span>
+                            </div>
+                            <div class="sentiment-bar-track">
+                                <div class="sentiment-bar-positive" id="positive-bar" style="width: 50%;">50%</div>
+                                <div class="sentiment-bar-negative" id="negative-bar" style="width: 50%;">50%</div>
+                            </div>
+                        </div>
+
+                        <h4 style="color: #1a5276; margin-bottom: 15px; text-shadow: 0 1px 0 rgba(255,255,255,0.5); position: relative; z-index: 1;">
+                            <i class="fas fa-stream" style="color: #2e86ab;"></i> Analyzed Tweets
+                        </h4>
+                        <div class="tweets-list" id="tweets-list">
+                            <!-- Tweets will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Made with <i class="fas fa-heart" style="color: #ff6b6b;"></i> using Flask, Tweepy & scikit-learn</p>
+        </div>
+    </div>
 
 
 
