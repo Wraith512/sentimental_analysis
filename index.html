@@ -1425,6 +1425,44 @@
             }
         }
 
+        function displayTwitterResults(data) {
+            const result = document.getElementById('twitter-result');
+            const summary = data.summary;
+
+            // Update query display
+            document.getElementById('search-query-display').textContent = data.query;
+
+            // Update summary cards
+            document.getElementById('total-tweets').textContent = summary.total;
+            document.getElementById('positive-tweets').textContent = summary.positive;
+            document.getElementById('negative-tweets').textContent = summary.negative;
+
+            // Update sentiment bar
+            const posPercent = summary.positive_percent || 50;
+            const negPercent = summary.negative_percent || 50;
+            
+            document.getElementById('positive-bar').style.width = posPercent + '%';
+            document.getElementById('positive-bar').textContent = posPercent + '%';
+            document.getElementById('negative-bar').style.width = negPercent + '%';
+            document.getElementById('negative-bar').textContent = negPercent + '%';
+
+            // Render tweets
+            const tweetsList = document.getElementById('tweets-list');
+            tweetsList.innerHTML = '';
+
+            if (data.tweets.length === 0) {
+                tweetsList.innerHTML = '<p style="color: #2c3e50; text-align: center; padding: 30px;">No tweets found for this query.</p>';
+            } else {
+                data.tweets.forEach(tweet => {
+                    const tweetCard = createTweetCard(tweet);
+                    tweetsList.appendChild(tweetCard);
+                });
+            }
+
+            // Show results
+            result.classList.add('show');
+        }
+
 
 
 
