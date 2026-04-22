@@ -3,7 +3,7 @@
 This project focuses on building a sentiment analysis system using machine learning. It analyzes textual data such as reviews or comments and classifies them as positive or negative. The project includes text preprocessing, feature extraction using TF-IDF, model training and evaluation to measure performance and im going to be using the sentiment140 dataset from kaggle with 1.6 million tweets.
 
 # Tech stack we are going to be using 
-Machine Learning: Python, scikit-learn, TF-IDF, Logistic Regression
+Machine Learning: Python, scikit-learn, TF-IDF, Linear SVC
 
 Backend: Flask, Flask-CORS, Tweepy, joblib
 
