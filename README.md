@@ -49,5 +49,7 @@ This project demonstrates how machine learning models can be integrated into rea
 ## App Preview
 <img width="1899" height="869" alt="Screenshot 2026-04-23 021124" src="https://github.com/user-attachments/assets/909ff2e8-ae6c-40dc-8c1d-6439a58d6e2d" />
 
+## demo
+<img width="1901" height="867" alt="image" src="https://github.com/user-attachments/assets/ac04b291-f011-4f84-8d0d-35870530b1cf" />
 
 
