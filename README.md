@@ -40,5 +40,8 @@ This project demonstrates how machine learning models can be integrated into rea
 4. Sentiment Trend Analysis Over Time — Track how public sentiment around a keyword shifts over days or weeks and visualize it as a time-series graph to identify patterns and events that influence opinion.
 5. Geographical Sentiment Mapping — Integrate location data from tweets to display sentiment distribution on an interactive world map, revealing regional differences in public opinion on any given topic.
 
+## App Preview
+<img width="1899" height="869" alt="Screenshot 2026-04-23 021124" src="https://github.com/user-attachments/assets/909ff2e8-ae6c-40dc-8c1d-6439a58d6e2d" />
+
 
 
