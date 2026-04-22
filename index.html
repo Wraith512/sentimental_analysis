@@ -1353,6 +1353,78 @@
             result.classList.add('show');
         }
 
+        function showError(message) {
+            const errorMessage = document.getElementById('error-message');
+            document.getElementById('error-text').textContent = message;
+            errorMessage.classList.add('show');
+        }
+
+        // Tab switching
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            if (tab === 'single') {
+                document.querySelector('.tab-btn:first-child').classList.add('active');
+                document.getElementById('single-tab').classList.add('active');
+            } else {
+                document.querySelector('.tab-btn:last-child').classList.add('active');
+                document.getElementById('twitter-tab').classList.add('active');
+            }
+        }
+
+        function setSearchExample(query) {
+            document.getElementById('twitter-query').value = query;
+            document.getElementById('twitter-query').focus();
+        }
+
+        // Twitter Search
+        async function searchTweets() {
+            const query = document.getElementById('twitter-query').value.trim();
+            const count = parseInt(document.getElementById('tweet-count').value) || 10;
+            const btn = document.getElementById('search-btn');
+            const result = document.getElementById('twitter-result');
+            const errorMessage = document.getElementById('twitter-error');
+
+            // Hide previous results
+            result.classList.remove('show');
+            errorMessage.classList.remove('show');
+
+            if (!query) {
+                showTwitterError('Please enter a search query.');
+                return;
+            }
+
+            // Show loading state
+            btn.classList.add('loading');
+            btn.disabled = true;
+
+            try {
+                const response = await fetch('/search_tweets', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ query: query, count: count }),
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Something went wrong');
+                }
+
+                // Display results
+                displayTwitterResults(data);
+
+            } catch (error) {
+                showTwitterError(error.message || 'Failed to fetch tweets. Please try again.');
+            } finally {
+                btn.classList.remove('loading');
+                btn.disabled = false;
+            }
+        }
+
 
 
 
