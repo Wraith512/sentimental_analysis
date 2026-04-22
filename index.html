@@ -1463,6 +1463,73 @@
             result.classList.add('show');
         }
 
+        function createTweetCard(tweet) {
+            const card = document.createElement('div');
+            card.className = 'tweet-card';
+
+            const initial = tweet.name ? tweet.name.charAt(0).toUpperCase() : '?';
+            const date = tweet.created_at ? new Date(tweet.created_at).toLocaleDateString() : '';
+
+            card.innerHTML = `
+                <div class="tweet-header">
+                    <div class="tweet-author">
+                        <div class="tweet-avatar">${escapeHtml(initial)}</div>
+                        <div>
+                            <div class="tweet-name">${escapeHtml(tweet.name)}</div>
+                            <div class="tweet-username">@${escapeHtml(tweet.username)}</div>
+                        </div>
+                    </div>
+                    <div class="tweet-sentiment ${tweet.sentiment}">
+                        <i class="fas ${tweet.sentiment === 'positive' ? 'fa-smile' : 'fa-frown'}"></i>
+                        ${tweet.sentiment} (${tweet.confidence}%)
+                    </div>
+                </div>
+                <div class="tweet-text">${escapeHtml(tweet.text)}</div>
+                <div class="tweet-footer">
+                    <div class="tweet-stats">
+                        <div class="tweet-stat">
+                            <i class="fas fa-heart"></i> ${tweet.likes || 0}
+                        </div>
+                        <div class="tweet-stat">
+                            <i class="fas fa-retweet"></i> ${tweet.retweets || 0}
+                        </div>
+                    </div>
+                    <div>${date}</div>
+                </div>
+            `;
+
+            return card;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function showTwitterError(message) {
+            const errorMessage = document.getElementById('twitter-error');
+            document.getElementById('twitter-error-text').textContent = message;
+            errorMessage.classList.add('show');
+        }
+
+        // Allow Enter key to submit (with Ctrl/Cmd)
+        document.getElementById('tweet-input').addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                analyzeSentiment();
+            }
+        });
+
+        document.getElementById('twitter-query').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                searchTweets();
+            }
+        });
+    </script>
+</body>
+</html>
+
+
 
 
 
