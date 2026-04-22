@@ -1094,6 +1094,92 @@
             </path>
         </svg>
     </div>
+    <!-- Floating bubbles for Frutiger Aero effect -->
+    <div class="bubbles">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+    </div>
+    
+    <!-- Light flare effect -->
+    <div class="light-flare"></div>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fab fa-twitter"></i> Sentiment Analysis</h1>
+            <p>Analyze the sentiment of tweets using Machine Learning</p>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('twitter')">
+                <i class="fab fa-twitter"></i> Live Twitter Search
+            </button>
+            <button class="tab-btn" onclick="switchTab('single')">
+                <i class="fas fa-comment"></i> Single Text
+            </button>
+        </div>
+
+        <!-- Single Text Analysis Tab -->
+        <div id="single-tab" class="tab-content active">
+            <div class="card">
+                <div class="input-group">
+                    <label for="tweet-input">Enter a tweet or text to analyze:</label>
+                    <textarea 
+                        id="tweet-input" 
+                        placeholder="Type or paste your text here... e.g., 'I absolutely love this new product!'"
+                        maxlength="500"
+                    ></textarea>
+                </div>
+
+                <button class="btn" id="analyze-btn" onclick="analyzeSentiment()">
+                    <div class="spinner"></div>
+                    <span class="btn-text"><i class="fas fa-search"></i> Analyze Sentiment</span>
+                </button>
+
+                <div class="examples">
+                    <h4>Try these examples:</h4>
+                    <div class="example-chips">
+                        <span class="example-chip" onclick="setExample('I love this product! Best purchase ever!')">Positive example</span>
+                        <span class="example-chip" onclick="setExample('This is terrible. Worst experience I ever had.')">Negative example</span>
+                        <span class="example-chip" onclick="setExample('The weather is okay today, nothing special.')">Neutral example</span>
+                    </div>
+                </div>
+
+                <div class="error-message" id="error-message">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span id="error-text"></span>
+                </div>
+
+                <div class="result" id="result">
+                    <div class="result-card">
+                        <div class="sentiment-badge" id="sentiment-badge">
+                            <i class="fas fa-smile"></i>
+                            <span id="sentiment-text">Positive</span>
+                        </div>
+
+                        <div class="confidence-section">
+                            <div class="confidence-label">
+                                <span>Confidence Level</span>
+                                <span id="confidence-value">85%</span>
+                            </div>
+                            <div class="confidence-bar">
+                                <div class="confidence-fill positive" id="confidence-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+
+                        <div class="text-preview">
+                            <h4>Analyzed Text:</h4>
+                            <p id="analyzed-text">"Your analyzed text will appear here..."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
 
 
