@@ -100,6 +100,7 @@
             50% { transform: translateX(-25%); }
             100% { transform: translateX(-50%); }
         }
+
         /* SVG Wave overlay for more detail */
         .wave-svg {
             position: fixed;
@@ -199,6 +200,7 @@
             text-shadow: 0 2px 10px rgba(0,0,0,0.2), 0 0 30px rgba(255,255,255,0.3);
             letter-spacing: -0.5px;
         }
+
         .header h1 i {
             color: #fff;
             filter: drop-shadow(0 0 10px rgba(29,161,242,0.8));
@@ -294,6 +296,7 @@
         .tab-content.active {
             display: block;
         }
+
         /* Glassmorphism Card - Frutiger Aero */
         .card {
             background: linear-gradient(145deg, 
@@ -393,6 +396,7 @@
         .input-row .input-group.small {
             flex: 0 0 120px;
         }
+
         /* Glossy Aero Button */
         .btn {
             width: 100%;
@@ -496,6 +500,7 @@
         .result.show {
             display: block;
         }
+
         .result-card {
             background: linear-gradient(145deg, 
                 rgba(255,255,255,0.5) 0%, 
@@ -596,6 +601,24 @@
                 0 1px 0 rgba(255,255,255,0.8);
         }
 
+        .confidence-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.8s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .confidence-fill::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 100%);
+        }
+
         .confidence-fill.positive {
             background: linear-gradient(180deg, 
                 rgba(100,220,140,0.95) 0%, 
@@ -673,6 +696,7 @@
         .footer a:hover {
             text-decoration: underline;
         }
+
         .examples {
             margin-top: 20px;
             padding-top: 20px;
@@ -775,6 +799,7 @@
             position: relative;
             z-index: 1;
         }
+
         .summary-card.positive .number {
             color: #059669;
         }
@@ -972,6 +997,7 @@
                 inset 0 2px 4px rgba(0,0,0,0.08),
                 0 1px 0 rgba(255,255,255,0.8);
         }
+
         .sentiment-bar-positive {
             background: linear-gradient(180deg, 
                 rgba(100,220,140,0.95) 0%, 
@@ -1094,6 +1120,7 @@
             </path>
         </svg>
     </div>
+
     <!-- Floating bubbles for Frutiger Aero effect -->
     <div class="bubbles">
         <div class="bubble"></div>
@@ -1179,6 +1206,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Twitter Search Tab -->
         <div id="twitter-tab" class="tab-content">
             <div class="card">
@@ -1528,10 +1556,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
